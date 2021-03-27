@@ -1,6 +1,12 @@
-import { IconButton } from "@material-ui/core";
+import {
+  Button,
+  IconButton,
+  Modal,
+  TextField,
+  Tooltip,
+} from "@material-ui/core";
 import { Star } from "@material-ui/icons";
-import { AnyAaaaRecord } from "node:dns";
+import EditIcon from "@material-ui/icons/Edit";
 import React, { useCallback, useState } from "react";
 import { News } from "./News";
 
@@ -20,8 +26,32 @@ const NewsCard: React.FC<NewsCardProps> = ({
   const fulldate = new Date(news.publishedAt);
   const date = fulldate.toString().split(" ");
 
+  const [open, setOpen] = useState<boolean>(false);
+  const [content, setContent] = useState<string>(news.description);
+  const [title, setTitle] = useState<string>(news.title);
+  const [author, setAuthor] = useState<string>(news.author);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const isStarred: boolean = starred.includes(news);
-  // const newStarred: any = starred.filter((star: any) => star! == news);
+
+  const tempArticle = starred.filter((star: any) => star !== news);
+  const currentContent = news;
+
+  const onEditClick = () => {
+    currentContent.description = content;
+    currentContent.title = title;
+    currentContent.author = author;
+    tempArticle.push(currentContent);
+    setStarred(tempArticle);
+    localStorage.setItem("article", JSON.stringify(starred));
+    handleClose();
+  };
 
   const onStarClick = useCallback(() => {
     if (isStarred) {
@@ -110,8 +140,87 @@ const NewsCard: React.FC<NewsCardProps> = ({
                   />
                 </IconButton>
               )}
+              {isStarred && loggedIn && (
+                <Tooltip title="Click to edit the content">
+                  <IconButton onClick={handleOpen}>
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
             </div>
           </>
+          <Modal
+            style={{
+              display: "flex",
+              padding: "8px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            open={open}
+            onClose={handleClose}
+          >
+            <div
+              style={{
+                position: "absolute",
+                width: 400,
+                backgroundColor: "white",
+                border: "1px solid black",
+                padding: "2em 3em",
+              }}
+            >
+              <h2>Edit your favorite article</h2>
+              <div style={{ marginTop: "2em" }}>
+                <TextField
+                  name="title"
+                  label="title"
+                  variant="outlined"
+                  value={title}
+                  fullWidth
+                  onChange={(event) => {
+                    setTitle(event.target.value);
+                  }}
+                  required
+                  error={title === "" ? true : false}
+                  helperText="please enter the title"
+                />
+              </div>
+              <div style={{ margin: "1em 0 2em" }}>
+                <TextField
+                  name="content"
+                  label="content"
+                  variant="outlined"
+                  value={content}
+                  onChange={(event) => {
+                    setContent(event.target.value);
+                  }}
+                  fullWidth
+                  required
+                  error={content === "" ? true : false}
+                  helperText="please enter the content"
+                />
+              </div>
+              <div style={{ margin: "1em 0 2em" }}>
+                <TextField
+                  name="author"
+                  label="author"
+                  variant="outlined"
+                  value={author}
+                  onChange={(event) => {
+                    setAuthor(event.target.value);
+                  }}
+                  fullWidth
+                  required
+                  error={author === "" ? true : false}
+                  helperText="please enter the author"
+                />
+              </div>
+              <div>
+                <Button fullWidth onClick={onEditClick}>
+                  Submit
+                </Button>
+              </div>
+            </div>
+          </Modal>
           <span
             style={{ fontSize: "12px", fontWeight: 400, paddingTop: "10px" }}
           >

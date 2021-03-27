@@ -151,7 +151,7 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
                     id === "" ? true : false || password === "" ? true : false
                   }
                 >
-                  Submit
+                  Login
                 </Button>
               </div>
             </div>

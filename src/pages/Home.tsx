@@ -1,8 +1,6 @@
 import {
-  AppBar,
   Button,
   FormControl,
-  IconButton,
   InputAdornment,
   InputLabel,
   MenuItem,
@@ -18,7 +16,6 @@ import { News } from "../components/News";
 import NewsCard from "../components/NewsCard";
 import {
   apiGet,
-  // useLastQuery
 } from "../misc/custom-hooks";
 
 type HomeProps = {
