@@ -1,20 +1,37 @@
 import { IconButton } from "@material-ui/core";
 import { Star } from "@material-ui/icons";
-import React, { useCallback } from "react";
+import { AnyAaaaRecord } from "node:dns";
+import React, { useCallback, useState } from "react";
 import { News } from "./News";
 
-const NewsCard = (props: { news: News }) => {
-  const { news } = props;
+type NewsCardProps = {
+  news: News;
+  starred: any;
+  setStarred: (starred: any) => void;
+  loggedIn: boolean;
+};
+
+const NewsCard: React.FC<NewsCardProps> = ({
+  news,
+  starred,
+  setStarred,
+  loggedIn,
+}) => {
   const fulldate = new Date(news.publishedAt);
   const date = fulldate.toString().split(" ");
 
-  // const [starred, dispatchStarred] = useNews()
-  // const isStarred = starred.includes(news.url)
-  // const onStarClick = useCallback(() => if (isStarred) {
-  //   dispatchStarred({type: 'REMOVE', id: news.url})
-  // } else {
-  //   dispatchStarred({type: 'ADD', id: news.url})
-  // }, [isStarred, news.url])
+  const isStarred: boolean = starred.includes(news);
+  // const newStarred: any = starred.filter((star: any) => star! == news);
+
+  const onStarClick = useCallback(() => {
+    if (isStarred) {
+      setStarred(starred.filter((star: any) => star !== news));
+      localStorage.setItem("article", JSON.stringify(starred));
+    } else {
+      setStarred([news, ...starred]);
+      localStorage.setItem("article", JSON.stringify(starred));
+    }
+  }, [news, starred]);
 
   return (
     <div
@@ -85,11 +102,15 @@ const NewsCard = (props: { news: News }) => {
             {news.description}
           </div>
           <>
-            {/* <div>
-              <IconButton onClick={onStarClick}>
-                <Star style={isStarred && { color: "yellow" }} />
-              </IconButton>
-            </div> */}
+            <div>
+              {loggedIn && (
+                <IconButton onClick={onStarClick}>
+                  <Star
+                    style={isStarred ? { color: "yellow" } : { color: "gray" }}
+                  />
+                </IconButton>
+              )}
+            </div>
           </>
           <span
             style={{ fontSize: "12px", fontWeight: 400, paddingTop: "10px" }}

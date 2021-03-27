@@ -24,9 +24,16 @@ import {
 type HomeProps = {
   loggedIn: boolean;
   setLoggedIn: (loggedIn: boolean) => void;
+  starred: any;
+  setStarred: (starred: any) => void;
 };
 
-const Home: React.FC<HomeProps> = ({ loggedIn, setLoggedIn }) => {
+const Home: React.FC<HomeProps> = ({
+  loggedIn,
+  setLoggedIn,
+  starred,
+  setStarred,
+}) => {
   const [input, setInput] = useState<string>("");
   const [page, setPage] = useState<number>(1);
   const [results, setResults] = useState<News[]>([]);
@@ -135,9 +142,15 @@ const Home: React.FC<HomeProps> = ({ loggedIn, setLoggedIn }) => {
         </FormControl>
       </div>
       <div>
-        {results && results.length > 0 ? (
+        {results && newsLength > 0 ? (
           results.map((news) => (
-            <NewsCard key={news.author} news={news}></NewsCard>
+            <NewsCard
+              key={news.url + news.publishedAt}
+              news={news}
+              starred={starred}
+              setStarred={setStarred}
+              loggedIn={loggedIn}
+            ></NewsCard>
           ))
         ) : (
           <div style={{ textAlign: "center", margin: "2em 0" }}>
@@ -146,7 +159,7 @@ const Home: React.FC<HomeProps> = ({ loggedIn, setLoggedIn }) => {
         )}
       </div>
       <Pagination
-        count={Math.ceil(newsLength / 20)}
+        count={newsLength > 100 ? 5 : Math.ceil(newsLength / 20)}
         page={page}
         onChange={onPageChange}
       />

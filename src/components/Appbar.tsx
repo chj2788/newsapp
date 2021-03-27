@@ -47,6 +47,8 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
       return;
     }
     setLoggedIn(false);
+    localStorage.setItem("login", JSON.stringify(false));
+
     alert(
       "successfully logged out! You can't access the starred page anymore :("
     );
@@ -57,6 +59,7 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
       setLoggedIn(true);
       alert("successfully logged in! You can now access the starred page");
       setOpen(false);
+      localStorage.setItem("login", JSON.stringify(true));
     } else {
       alert(
         "The id and password you entered did not match our Records. Please double-check and try again"
