@@ -71,7 +71,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
         boxShadow:
           "0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12)",
         padding: "2em 0",
-        marginBottom: "25px",
+        marginBottom: "2em",
         borderRadius: "5px",
       }}
     >
@@ -95,21 +95,18 @@ const NewsCard: React.FC<NewsCardProps> = ({
         }}
       >
         <div>
-          <span style={{ fontSize: "22px", lineHeight: "27px" }}>
+          <span style={{ fontSize: "1.5em", lineHeight: "2em" }}>
             {news.title}
           </span>
           <br />
           <span
             style={{
-              fontSize: "12px",
+              fontSize: "0.8em",
               fontWeight: 300,
-              lineHeight: "22px",
+              lineHeight: "2em",
               color: "#808290",
             }}
           >
-            <a href={news.url} target="__blank">
-              <b>short </b>
-            </a>
             <span style={{ fontWeight: 100 }}>
               by {news.author ? news.author : "unknown"} / on {date[0]}{" "}
               {date[1]} {date[2]}, {date[3]}
@@ -123,11 +120,11 @@ const NewsCard: React.FC<NewsCardProps> = ({
             flexDirection: "column",
             justifyContent: "space-between",
             flex: 1,
-            padding: "10px 0",
+            padding: "1em 0",
           }}
         >
           <div
-            style={{ fontSize: "16px", lineHeight: "22px", color: "#44444d" }}
+            style={{ fontSize: "1em", lineHeight: "1.5em", color: "#44444d" }}
           >
             {news.description}
           </div>
@@ -163,7 +160,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
           <Modal
             style={{
               display: "flex",
-              padding: "8px",
+              padding: "2em",
               alignItems: "center",
               justifyContent: "center",
             }}
@@ -232,14 +229,12 @@ const NewsCard: React.FC<NewsCardProps> = ({
               </div>
             </div>
           </Modal>
-          <span
-            style={{ fontSize: "12px", fontWeight: 400, paddingTop: "10px" }}
-          >
+          <span style={{ fontSize: "1em", fontWeight: 400, paddingTop: "1em" }}>
             read more at{" "}
             <a
               href={news.url}
               target="__blank"
-              style={{ textDecoration: "none", color: "black" }}
+              style={{ textDecoration: "underline", color: "blue" }}
             >
               <b>{news.source.name}</b>
             </a>

@@ -95,7 +95,7 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
           <Modal
             style={{
               display: "flex",
-              padding: "8px",
+              padding: "2em",
               alignItems: "center",
               justifyContent: "center",
             }}

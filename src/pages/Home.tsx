@@ -14,9 +14,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import Appbar from "../components/Appbar";
 import { News } from "../components/News";
 import NewsCard from "../components/NewsCard";
-import {
-  apiGet,
-} from "../misc/custom-hooks";
+import { apiGet } from "../misc/custom-hooks";
 
 type HomeProps = {
   loggedIn: boolean;
@@ -128,7 +126,7 @@ const Home: React.FC<HomeProps> = ({
           }
         />
       </div>
-      <div>
+      <div style={{ marginBottom: "1em" }}>
         <FormControl variant="outlined">
           <InputLabel>Sort By</InputLabel>
           <Select value={sortBy} onChange={handleChange} label="Sort By">
