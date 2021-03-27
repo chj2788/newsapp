@@ -5,7 +5,7 @@ import {
   TextField,
   Tooltip,
 } from "@material-ui/core";
-import { Star } from "@material-ui/icons";
+import Star from "@material-ui/icons/Star";
 import EditIcon from "@material-ui/icons/Edit";
 import React, { useCallback, useState } from "react";
 import { News } from "./News";
@@ -134,9 +134,20 @@ const NewsCard: React.FC<NewsCardProps> = ({
           <>
             <div>
               {loggedIn && (
-                <IconButton onClick={onStarClick}>
+                <IconButton
+                  style={{
+                    backgroundColor: "gray",
+                  }}
+                  onClick={onStarClick}
+                >
                   <Star
-                    style={isStarred ? { color: "yellow" } : { color: "gray" }}
+                    style={
+                      isStarred
+                        ? {
+                            color: "yellow",
+                          }
+                        : { color: "white" }
+                    }
                   />
                 </IconButton>
               )}
