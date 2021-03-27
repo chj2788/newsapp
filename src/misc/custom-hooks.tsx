@@ -1,11 +1,15 @@
 import { useReducer, useState, useEffect, useRef, useCallback } from "react";
 
 const API_BASE_URL =
-  "https://newsapi.org/v2/everything?apiKey=f0314630b1d64516bc522a83c6c5b6c0&sortBy=publishedAt&q=";
+  "https://newsapi.org/v2/everything?apiKey=f0314630b1d64516bc522a83c6c5b6c0&pageSize=20&q=";
 
-export async function apiGet(queryString: string): Promise<any> {
+export async function apiGet(
+  queryString: string,
+  page: number,
+  sortBy: string
+): Promise<any> {
   const response = await fetch(
-    `${API_BASE_URL}${queryString}`
+    `${API_BASE_URL}${queryString}&page=${page}&sortBy=${sortBy}`
   ).then((response) => response.json());
 
   return response;

@@ -1,9 +1,13 @@
 import {
   AppBar,
   Button,
+  FormControl,
   IconButton,
   InputAdornment,
+  InputLabel,
+  MenuItem,
   OutlinedInput,
+  Select,
   Toolbar,
 } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
@@ -24,10 +28,10 @@ type HomeProps = {
 
 const Home: React.FC<HomeProps> = ({ loggedIn, setLoggedIn }) => {
   const [input, setInput] = useState<string>("");
-  // const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(1);
   const [results, setResults] = useState<News[]>([]);
   const [newsLength, setNewsLength] = useState<number>(0);
-  const [loadMore, setLoadMore] = useState<number>(0);
+  const [sortBy, setSortBy] = useState<string>("publishedAt");
   const location = useLocation();
 
   const onInputChange = useCallback(
@@ -38,12 +42,15 @@ const Home: React.FC<HomeProps> = ({ loggedIn, setLoggedIn }) => {
   );
 
   const onSearch = () => {
-    apiGet(input).then((result) => {
+    apiGet(input, page, sortBy).then((result) => {
       setResults(result.articles);
       setNewsLength(result.totalResults);
       console.log(result, result.articles);
     });
   };
+  useEffect(() => {
+    onSearch();
+  }, [page, sortBy]);
 
   const onKeyDown = (
     event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -53,11 +60,12 @@ const Home: React.FC<HomeProps> = ({ loggedIn, setLoggedIn }) => {
     }
   };
 
-  // const onPageChange = useCallback((event: any, value: number) => {
-  //   setPage(value);
-  //   onSearch();
-  //   console.log(value);
-  // }, []);
+  const onPageChange = useCallback((event: any, value: number) => {
+    setPage(value);
+    console.log(value);
+  }, []);
+
+  const handleChange = (event: any) => setSortBy(event.target.value);
 
   return (
     <div style={{ margin: "0 3em" }}>
@@ -91,7 +99,6 @@ const Home: React.FC<HomeProps> = ({ loggedIn, setLoggedIn }) => {
           </Button>
         </div>
       ) : (
-        // <Toolbar />
         <div
           style={{
             textAlign: "center",
@@ -118,6 +125,16 @@ const Home: React.FC<HomeProps> = ({ loggedIn, setLoggedIn }) => {
         />
       </div>
       <div>
+        <FormControl variant="outlined">
+          <InputLabel>Sort By</InputLabel>
+          <Select value={sortBy} onChange={handleChange} label="Sort By">
+            <MenuItem value={"publishedAt"}>Most Recent</MenuItem>
+            <MenuItem value={"popularity"}>Popular</MenuItem>
+            <MenuItem value={"relevancy"}>Relevance</MenuItem>
+          </Select>
+        </FormControl>
+      </div>
+      <div>
         {results && results.length > 0 ? (
           results.map((news) => (
             <NewsCard key={news.author} news={news}></NewsCard>
@@ -128,17 +145,11 @@ const Home: React.FC<HomeProps> = ({ loggedIn, setLoggedIn }) => {
           </div>
         )}
       </div>
-      {loadMore <= newsLength && (
-        <>
-          <hr />
-          <Button onClick={() => setLoadMore(loadMore + 20)}>Load More</Button>
-        </>
-      )}
-      {/* <Pagination
+      <Pagination
         count={Math.ceil(newsLength / 20)}
         page={page}
         onChange={onPageChange}
-      /> */}
+      />
     </div>
   );
 };

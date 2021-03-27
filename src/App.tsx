@@ -2,6 +2,7 @@ import Home from "./pages/Home";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Starred from "./pages/Starred";
 import { useState } from "react";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
@@ -12,9 +13,9 @@ function App() {
           <Route exact path="/">
             <Home loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
           </Route>
-          <Route exact path="/starred">
+          <PrivateRoute exact path="/starred" loggedIn={loggedIn}>
             <Starred loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </BrowserRouter>
     </div>
