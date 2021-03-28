@@ -1,6 +1,7 @@
 import {
   Button,
   FormControl,
+  IconButton,
   InputAdornment,
   InputLabel,
   MenuItem,
@@ -15,6 +16,7 @@ import Appbar from "../components/Appbar";
 import { News } from "../components/News";
 import NewsCard from "../components/NewsCard";
 import { apiGet } from "../misc/custom-hooks";
+import SearchIcon from "@material-ui/icons/Search";
 
 type HomeProps = {
   loggedIn: boolean;
@@ -47,7 +49,6 @@ const Home: React.FC<HomeProps> = ({
     apiGet(input, page, sortBy).then((result) => {
       setResults(result.articles);
       setNewsLength(result.totalResults);
-      console.log(result, result.articles);
     });
   };
   useEffect(() => {
@@ -70,7 +71,7 @@ const Home: React.FC<HomeProps> = ({
   const handleChange = (event: any) => setSortBy(event.target.value);
 
   return (
-    <div style={{ margin: "0 3em" }}>
+    <div style={{ margin: "0 15%", fontFamily: "Oxygen" }}>
       <Appbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <Toolbar />
       {loggedIn ? (
@@ -121,7 +122,9 @@ const Home: React.FC<HomeProps> = ({
           onKeyDown={onKeyDown}
           endAdornment={
             <InputAdornment position="end">
-              <Button onClick={onSearch}>search</Button>
+              <IconButton onClick={onSearch}>
+                <SearchIcon />
+              </IconButton>
             </InputAdornment>
           }
         />
@@ -131,7 +134,7 @@ const Home: React.FC<HomeProps> = ({
           <InputLabel>Sort By</InputLabel>
           <Select value={sortBy} onChange={handleChange} label="Sort By">
             <MenuItem value={"publishedAt"}>Most Recent</MenuItem>
-            <MenuItem value={"popularity"}>Popular</MenuItem>
+            <MenuItem value={"popularity"}>Popularity</MenuItem>
             <MenuItem value={"relevancy"}>Relevance</MenuItem>
           </Select>
         </FormControl>
@@ -153,11 +156,16 @@ const Home: React.FC<HomeProps> = ({
           </div>
         )}
       </div>
-      <Pagination
-        count={newsLength > 100 ? 5 : Math.ceil(newsLength / 20)}
-        page={page}
-        onChange={onPageChange}
-      />
+      <div style={{ margin: "5em 0 3em" }}>
+        <Pagination
+          count={newsLength > 100 ? 5 : Math.ceil(newsLength / 20)}
+          page={page}
+          onChange={onPageChange}
+          color="primary"
+          variant="outlined"
+          size="large"
+        />
+      </div>
     </div>
   );
 };

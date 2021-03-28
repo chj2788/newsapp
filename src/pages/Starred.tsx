@@ -19,7 +19,7 @@ const Starred: React.FC<StarredProps> = ({
 }) => {
   const location = useLocation();
   return (
-    <div>
+    <div style={{ margin: "0 15%", fontFamily: "Oxygen" }}>
       <Appbar loggedIn={loggedIn} setLoggedIn={setLoggedIn} />
       <Toolbar />
       <div style={{ textAlign: "center", margin: "2em" }}>

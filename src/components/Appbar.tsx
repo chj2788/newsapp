@@ -1,6 +1,8 @@
 import {
   AppBar,
+  Avatar,
   Button,
+  IconButton,
   makeStyles,
   Modal,
   TextField,
@@ -8,15 +10,17 @@ import {
   Typography,
 } from "@material-ui/core";
 import { useState } from "react";
+import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    margin: "0 3em",
   },
   title: {
     flexGrow: 1,
-    marginLeft: "1.5em",
+    marginLeft: "15%",
+    fontFamily: "Pattaya",
+    color: theme.palette.primary.light,
   },
 }));
 
@@ -34,12 +38,20 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
+  const [openProfile, setOpenProfile] = useState<boolean>(false);
 
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleProfileOpen = () => {
+    setOpenProfile(true);
+  };
+  const handleProfileClose = () => {
+    setOpenProfile(false);
   };
 
   const signOut = () => {
@@ -49,6 +61,7 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
     setLoggedIn(false);
     localStorage.setItem("login", JSON.stringify(false));
 
+    setOpenProfile(false);
     alert(
       "successfully logged out! You can't access the starred page anymore :("
     );
@@ -68,20 +81,16 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
   };
 
   return (
-    <>
-      <AppBar>
+    <div className={classes.root}>
+      <AppBar style={{ padding: "0.3em 0" }}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h4" className={classes.title}>
             News App
           </Typography>
           {loggedIn && (
-            <Button
-              color="inherit"
-              onClick={signOut}
-              style={{ marginRight: "2em" }}
-            >
-              Sign Out
-            </Button>
+            <div onClick={handleProfileOpen} style={{ marginRight: "15%" }}>
+              <Avatar alt={"Alyce"}>A</Avatar>
+            </div>
           )}
           {!loggedIn && (
             <Button
@@ -92,6 +101,45 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
               Login
             </Button>
           )}
+          <Modal
+            style={{
+              display: "flex",
+              padding: "2em",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+            open={openProfile}
+            onClose={handleProfileClose}
+          >
+            <div
+              style={{
+                position: "absolute",
+                width: 400,
+                backgroundColor: "white",
+                border: "1px solid black",
+                padding: "2em 3em",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <h2>Hello, {account.id}</h2>
+                <IconButton onClick={handleProfileClose}>
+                  <CloseIcon />
+                </IconButton>
+              </div>
+              <p>You can now add or edit your favorite articles.</p>
+              <div style={{ marginTop: "3em" }}>
+                <Button fullWidth onClick={signOut}>
+                  Sign out
+                </Button>
+              </div>
+            </div>
+          </Modal>
           <Modal
             style={{
               display: "flex",
@@ -111,7 +159,18 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
                 padding: "2em 3em",
               }}
             >
-              <h2>LogIn</h2>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <h2>LogIn</h2>
+                <IconButton onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+              </div>
               <div style={{ marginTop: "2em" }}>
                 <TextField
                   name="id"
@@ -158,7 +217,7 @@ const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
           </Modal>
         </Toolbar>
       </AppBar>
-    </>
+    </div>
   );
 };
 

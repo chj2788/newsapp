@@ -6,6 +6,7 @@ import {
   Tooltip,
 } from "@material-ui/core";
 import Star from "@material-ui/icons/Star";
+import CloseIcon from "@material-ui/icons/Close";
 import EditIcon from "@material-ui/icons/Edit";
 import React, { useCallback, useState } from "react";
 import { News } from "./News";
@@ -50,7 +51,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
     tempArticle.push(currentContent);
     setStarred(tempArticle);
     localStorage.setItem("article", JSON.stringify(starred));
-    handleClose();
+    setOpen(false);
   };
 
   const onStarClick = useCallback(() => {
@@ -83,7 +84,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
               ? news.urlToImage
               : "http://www.aaru.edu.jo/websites/aaru2/wp-content/plugins/learnpress/assets/images/no-image.png?Mobile=1&Source=%2F%5Flayouts%2Fmobile%2Fdispform%2Easpx%3FList%3D78b536db%252De7c7%252D45d9%252Da661%252Ddb2a2aa2fbaf%26View%3D6efc759a%252D0646%252D433c%252Dab6e%252D2f027ffe0799%26RootFolder%3D%252Fwebsites%252Faaru2%252Fwp%252Dcontent%252Fplugins%252Flearnpress%252Fassets%252Fimages%26ID%3D4786%26CurrentPage%3D1"
           }
-          style={{ objectFit: "cover", width: "320px", height: "268px" }}
+          style={{ objectFit: "cover", width: "15em", height: "15em" }}
         />
       </div>
       <div
@@ -95,7 +96,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
         }}
       >
         <div>
-          <span style={{ fontSize: "1.5em", lineHeight: "2em" }}>
+          <span style={{ fontSize: "1.5em", lineHeight: "1em" }}>
             {news.title}
           </span>
           <br />
@@ -131,19 +132,15 @@ const NewsCard: React.FC<NewsCardProps> = ({
           <>
             <div>
               {loggedIn && (
-                <IconButton
-                  style={{
-                    backgroundColor: "gray",
-                  }}
-                  onClick={onStarClick}
-                >
+                <IconButton onClick={onStarClick}>
                   <Star
                     style={
                       isStarred
                         ? {
-                            color: "yellow",
+                            color: "#ffc400",
+                            fontSize: "1.3em",
                           }
-                        : { color: "white" }
+                        : { fontSize: "1.3em" }
                     }
                   />
                 </IconButton>
@@ -176,7 +173,18 @@ const NewsCard: React.FC<NewsCardProps> = ({
                 padding: "2em 3em",
               }}
             >
-              <h2>Edit your favorite article</h2>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <h2>Edit your favorite article</h2>
+                <IconButton onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+              </div>
               <div style={{ marginTop: "2em" }}>
                 <TextField
                   name="title"
