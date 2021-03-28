@@ -3,8 +3,10 @@
 **CODING TEST FOR ALYCE HEALTHCARE**
 
 ##Preview
-![newsApp](https://user-images.githubusercontent.com/62086687/112726830-b586a800-8f62-11eb-8434-5485c17d6a61.PNG)
-![newsApp2](https://user-images.githubusercontent.com/62086687/112726834-b9b2c580-8f62-11eb-96a5-5a265bd95e18.PNG)
+![NewsAppPreview](https://user-images.githubusercontent.com/62086687/112749025-98051d00-8ffa-11eb-944c-a23f9db9cfad.PNG)
+![NewsAppPreview2](https://user-images.githubusercontent.com/62086687/112749028-9b98a400-8ffa-11eb-8c90-f2e9a26a6511.PNG)
+![NewsAppPreview3](https://user-images.githubusercontent.com/62086687/112749031-9fc4c180-8ffa-11eb-994b-f67d60e2777f.PNG)
+
 
 ##Overview
 -Dynamic client side rendering with React Router to maintain the seamless user experience.
