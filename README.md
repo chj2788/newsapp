@@ -9,6 +9,9 @@
 
 
 ##Overview
+
+-Hosted with github pages. [Demo](https://chj2788.github.io/newsapp/#/)
+
 -Dynamic client side rendering with React Router to maintain the seamless user experience.
 
 -Fetch data from news API in order to display the search results while a starred article lists and login info stored in a local storage.
