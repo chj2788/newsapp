@@ -1,10 +1,9 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 const theme = createMuiTheme({
   palette: {
@@ -30,11 +29,11 @@ const theme = createMuiTheme({
 });
 
 ReactDOM.render(
-  <BrowserRouter>
+  <HashRouter>
     <ThemeProvider theme={theme}>
       <App />
     </ThemeProvider>
-  </BrowserRouter>,
+  </HashRouter>,
   document.getElementById("root")
 );
 
