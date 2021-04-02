@@ -32,8 +32,8 @@ type AppbarProps = {
 const Appbar: React.FC<AppbarProps> = ({ loggedIn, setLoggedIn }) => {
   const classes = useStyles();
   const account = {
-    id: "alyce",
-    password: "alyce123",
+    id: "alice",
+    password: "alice123",
   };
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");

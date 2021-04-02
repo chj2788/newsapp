@@ -164,6 +164,7 @@ const Home: React.FC<HomeProps> = ({
           color="primary"
           variant="outlined"
           size="large"
+          disabled={!newsLength && true}
         />
       </div>
     </div>
