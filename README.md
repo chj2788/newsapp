@@ -12,19 +12,18 @@
 
 -Dynamic client side rendering with React Router to maintain the seamless user experience.
 
--Fetch data from news API in order to display the search results while a starred article lists and login info stored in a local storage.
+-Fetch data from news API in order to display the search results while a favorite article list and login info stored in a local storage.
 
 - Stack
     - React
     - TypeScript
     - Material UI Framework
-    - 
--*plan to update the project with GraphQL for state management*
+- *plan to update with GraphQL for state management*
 
 ## Features
 
-- search articles with sort options(relevancy, popularity, most recent)
-- pagination (max 100 articles with free account)
-- Favorite articles only available for logged-in users
+- Search articles with sorting options(by relevancy, popularity, most recent)
+- pagination (max 100 articles with free account, 20 articles per page)
+- Favorite articles only available for logged-in users(**you can log in with id: alice, password: alice123**)
 - Edit author, title, and description of favorite articles.
 
