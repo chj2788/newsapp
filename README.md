@@ -8,22 +8,23 @@
 
 ## Overview
 
--Hosted with github pages. [Demo](https://chj2788.github.io/newsapp/#/)
+- Hosted with github pages(To see the search results, use npm start instead; new API reject any request using the key that is not coming from localhost). 
+- [Demo](https://chj2788.github.io/newsapp/#/) (**TEST ACCOUNT id: alice, password: alice123**)
 
--Dynamic client side rendering with React Router to maintain the seamless user experience.
+- Dynamic client side rendering with React Router to maintain the seamless user experience.
 
--Fetch data from news API in order to display the search results while a favorite article list and login info stored in a local storage.
+- Fetch data from news API in order to display the search results while a favorite article list and login info stored in a local storage.
 
 - Stack
     - React
     - TypeScript
     - Material UI Framework
-- *plan to update with GraphQL for state management*
+- *plan to update the login feature with GraphQL and JWT*
 
 ## Features
 
-- Search articles with sorting options(by relevancy, popularity, most recent)
+- Search articles with various sorting options(by relevancy, popularity, most recent)
 - pagination (max 100 articles with free account, 20 articles per page)
-- Favorite articles only available for logged-in users(**you can log in with id: alice, password: alice123**)
+- Favorite articles only available for logged-in users
 - Edit author, title, and description of favorite articles.
 
